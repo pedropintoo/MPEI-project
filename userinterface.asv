@@ -11,10 +11,10 @@ load data/MatrixSig.mat
 %% ID do utilizador
 % Validar ID
 fprintf("\n")
-Nu = length(travels);
+Nu = length(users);
 while true
     id = input(sprintf("Insert Tourist ID (1 to %d): ",Nu));
-    if id > 0 && id <= length(travels)
+    if id > 0 && id <= length(users)
         break;
     end
 end
