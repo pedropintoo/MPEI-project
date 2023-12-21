@@ -13,6 +13,7 @@ v = initHashFunctions(N, k);
 
 % calcular a Matriz de Assinaturas com MinHash
 Msign = createMatrixSignatures(travelSets, v, k);
+disp(Msign);
 
 save("data/Msign.mat", "Msign");
 
@@ -20,8 +21,10 @@ save("data/Msign.mat", "Msign");
 % 'tourists9.txt'
 % id-travel | name | surname | interest1 | interest2 | ...
 dic = readcell('data/tourists9.txt','Delimiter',';');
-travelInterests = dic(:,4:8);
-save("data/travelInterests.mat","travelInterests");
+travelInterests = dic{:,4};
+
+%save("data/dic.mat","dic");
+
 
 %%
 % 'countries_info.csv.txt'

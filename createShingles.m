@@ -1,17 +1,17 @@
-function restShingles = createShingles(filename, k_shingle)
+function countryShingles = createShingles(filename, k_shingle)
 
-    rest = readcell(filename,'Delimiter','\t');
-    save("data/rest.mat","rest");
+    countries = readcell(filename,'Delimiter',';');
+    save("data/countries.mat","countries");
     
-    numRests = length(rest);
+    numCountries = length(countries);
     
-    restShingles = cell(numRests, 1);
+    countryShingles = cell(numCountries, 1);
     
-    for i = 1:numRests
+    for i = 1:numCountries
         j = 1;
-        name = rest{i,2};
+        name = countries{i,2};
         while (j+k_shingle-1 <= length(name))
-            restShingles{i}(j,1) = {name(j:j+k_shingle-1)};
+            countryShingles{i}(j,1) = {name(j:j+k_shingle-1)};
             j = j + 1;
         end
     end

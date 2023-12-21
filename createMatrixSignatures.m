@@ -1,4 +1,4 @@
-function MatrixSignatures = createMatrixSignatures(userSets, v, k)
+function Msign = createMatrixSignatures(userSets, v, k)
     % Cria a matriz de Assinaturas com k apartir de funcao
     % de dispersao, baseada na familia universal
     % com o Metodo de Carter and Wegman
@@ -7,14 +7,14 @@ function MatrixSignatures = createMatrixSignatures(userSets, v, k)
     h= waitbar(0,"Creating Signatures...");
 
     Nu = length(userSets);
-    MatrixSignatures = zeros(k, Nu);
+    Msign = zeros(k, Nu);
 
     for u = 1:Nu 
         waitbar(u/Nu, h);
         x = userSets{u}';
         for fh = 1:k
             % Metodo de Carter and Wegman 
-            MatrixSignatures(fh,u) = min(mod(mod(v.a(fh).*x + v.b(fh) ,v.p),v.M));
+            Msign(fh,u) = min(mod(mod(v.a(fh).*x + v.b(fh) ,v.p),v.M));
         end
     end
     
