@@ -6,15 +6,15 @@ load data/travels.mat
 load data/travelSets.mat
 load data/travelInterests.mat
 load data/countries.mat
-load data/MatrixSig.mat
+load data/Msign.mat
 
 %% ID do utilizador
 % Validar ID
 fprintf("\n")
-Nu = length(users);
+Nu = length(travels);
 while true
     id = input(sprintf("Insert Tourist ID (1 to %d): ",Nu));
-    if id > 0 && id <= length(users)
+    if id > 0 && id <= length(travels)
         break;
     end
 end
@@ -32,26 +32,27 @@ while true
     fprintf("\n");
     switch option
         case 1
-            % Restaurants evaluated by you (by ID)
-            RestsEvaluated = userSets{id};
-            fprintf("You evaluate %d restaurants.\n",length(RestsEvaluated));
-            for r = RestsEvaluated'
-                name = rest{r,2};
-                location = rest{r,4};
-                fprintf("[%d] - '%s', in %s\n",r,name,location);
+            % Countries visited by current user (by ID)
+            CountriesVisited = travelSets{id};
+            fprintf("You visited %d countries.\n",length(CountriesVisited));
+            for c = CountriesVisited'
+                name = countries{c,1};
+                fprintf("[ID=%3d] - %s \n",c,name);
             end
 
         case 2
             % Calculate the ~Jaccard distances
-            [MostSimilar_value, MostSimalar_id] = calcMostSimilarSignatures(MatrixSig,k,id); 
-            fprintf("Most Similar [ID=%d] - ~%.3f similar.\n",MostSimalar_id, MostSimilar_value);
-            % Restaurants evaluated by Most Similar (by ID)
-            RestsEvaluated = userSets{MostSimalar_id};
-            for r = RestsEvaluated'
-                name = rest{r,2};
-                location = rest{r,4};
-                fprintf("[%d] - '%s', in %s\n",r,name,location);
+            % s1 -> most similar | s2 -> second most similar
+            [s1_id, s2_id] = calc2MostSimilarSignatures(Msign,k,id); 
+            fprintf("Countries evaluated by: [ID=%d] [ID=%d]\n",s1_id,s2_id);
+            fprintf("Countries evaluated by: [ID=%d] [ID=%d]\n",s1_id,s2_id);
+            % Union of countries evaluated by the 2 most similar
+            countriesEvaluated = union(travelSets{s1_id},travelSets{s2_id});
+            for c = countriesEvaluated'
+                name = countries{c,1};
+                fprintf("[ID=%3d] - %s \n",c,name); % e para imprimir so isto ????
             end
+            
         case 3
             searchRestaurant(id_rest);
         case 4

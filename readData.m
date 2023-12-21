@@ -13,7 +13,6 @@ v = initHashFunctions(N, k);
 
 % calcular a Matriz de Assinaturas com MinHash
 Msign = createMatrixSignatures(travelSets, v, k);
-
 save("data/Msign.mat", "Msign");
 
 %%
@@ -32,3 +31,14 @@ countryShingles = createShingles('data/countries_info.csv',k_shingle); % shingle
 % k = 200; %% ???
 % N = 1e7; %% ???
 
+%% Option 2
+
+% Calcular as 2 assinaturas mais similares de cada turista
+Nt = length(travels);
+M2mostSim = zeros(t,2);
+for t = 1:Nt
+    [a,b] = calc2MostSimilarSignatures(Msign,k,t);
+    M2mostSim(t,1) = a;
+    M2mostSim(t,2) = b;
+end
+save("data/M2mostSim.mat", "M2mostSim");
