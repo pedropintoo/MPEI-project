@@ -1,18 +1,19 @@
 % 'travelsN.data'
 % id-travel | id-country que visitou |  | ... | score
-[travels, travelSets] = createSets('data/travels9.data');
+[travels, travelSets, travelSetsMoreThan3Days] = createSets('data/travels9.data');
 
 save("data/travels.mat","travels");
 save("data/travelSets.mat","travelSets");
+save("data/travelSetsMoreThan3Days.mat","travelSetsMoreThan3Days")
 
 k = 200; %% ???
 N = 1e7; %% ???
 
 % iniciar as funções de dispersão
-v1 = initHashFunctions(N, k);
+v = initHashFunctions(N, k);
 
 % calcular a Matriz de Assinaturas com MinHash
-Msign = createMatrixSignatures(travelSets, v1, k);
+Msign = createMatrixSignatures(travelSets, v, k);
 save("data/Msign.mat", "Msign");
 
 %%
@@ -28,22 +29,24 @@ end
 
 save("data/travelInterests.mat","travelInterests");
 
-%%
+%% Option 3
+
 % 'countries_info.csv.txt'
 % id-country | description
 k_shingle = 8; %% ???
 countryShingles = createShingles('data/countries_info.csv', k_shingle); % shinglesDescription
 
-k = 200; %% ???
-% N = 1e7; %% ???
 
-
-% iniciar as funções de dispersão
-v2 = initHashFunctions(N, k);
+k = 50; % ???
+M = 1e6; % Hash values mod
 
 % calcular a Matriz de Assinaturas com MinHash
-MsignShi = createMatrixSignaturesWithStrings(countryShingles, k);
-disp(MsignShi);
+MsignShi = createMatrixSignaturesWithStrings(countryShingles, k, M);
+
+%% Calculate the distances
+
+MdistOption3 = calcDistancesSignatures(MsignShi,k);
+save('data/MdistOption3.mat',"MdistOption3");
 
 %% Option 4
 

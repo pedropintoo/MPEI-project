@@ -68,27 +68,13 @@ while true
         case 3
             % Countries visited more than 3 days by current user (by ID)
             CountriesVisitedMoreThan3Days = travelSetsMoreThan3Days{id};
-            CMT3D = length(CountriesVisitedMoreThan3Days);
-            similarC = zeros(CMT3D,2);
-            DISTANCE = 1; ID = 2; % vars to use forther (to simplify)
-            i = 1;
+
             for c = CountriesVisitedMoreThan3Days'
-                [similarC(i,DISTANCE), similarC(i,ID)] = min(MdistOption3(c,:));
-                i = i + 1;
-            end
-            % Pode acontecer ja terem sido visitados!
-            % ||||||||||||||||||||||||||||||||||||||||||||
-            threshold = sum(similarC(:,DISTANCE))/CMT3D;
-            for c = similarC'
-                distance = c(DISTANCE);
-                if distance >= threshold
-                    continue;
-                end
-                id = c(ID);
+                [distance, id] = min(MdistOption3(c,:));
                 name = countries{id,1};
-                fprintf("[ID=%3d] - %s, with distance ~%.2f\n",id,name,distance);
+                fprintf("[ID=%3d] - %s \n",id,name);
             end
-           
+            searchRestaurant(id_rest);
         case 4
             mostSimilarRestaurants(id_rest);
         case 5
