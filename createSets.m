@@ -1,5 +1,5 @@
 function [users, Sets] = createSets(filename)
-    % Cria a estrutura de filmes e utilizadores
+    % Cria a estrutura de travels e turistas
     h=waitbar(0,'Creating Sets...');
 
     udata=load(filename);          
@@ -7,13 +7,12 @@ function [users, Sets] = createSets(filename)
     clear udata;
     
     users = unique(u(:,1));
-    % users = users(randperm(length(users),100)); % exercicio 2
     Nu= length(users); 
 
-    % Consjunto de filmes avaliados para cada utilizador
+    % Conjunto de travels de cada turista
     Sets= cell(Nu,1);               
     
-    for n = 1:Nu % para cada utilizador 
+    for n = 1:Nu
         waitbar(n/Nu,h);
         ind = u(:,1) == users(n);
         Sets{n} = [Sets{n} u(ind,2)];
