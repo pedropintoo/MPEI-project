@@ -9,6 +9,10 @@ load data/v_bf.mat
 % Matrix...
 load data/travels.mat
 load data/travelSets.mat
+load data/travelSetsMoreThan3Days.mat
+load data/MdistOption3.mat
+load data/MdistOption4.mat
+
 load data/travelInterests.mat
 load data/countries.mat
 load data/Msign.mat
@@ -63,9 +67,49 @@ while true
             end
             
         case 3
-            searchRestaurant(id_rest);
+            
+            % Countries visited more than 3 days by current user (by ID)
+            CountriesVisitedMoreThan3Days = travelSetsMoreThan3Days{id};
+
+            CountriesVisited = travelSets{id}; % Para garantir que nao foram visitados
+            
+            DISTANCE = 1; ID = 2; % vars to use forther (to simplify)
+            len = 0;
+            for c = CountriesVisitedMoreThan3Days'
+                [dist_sim,id_sim] = min(MdistOption3(c,:));
+                % verificar se ja foi visitado
+                if ismember(id_sim, CountriesVisited)
+                    continue; % ja visitado
+                end
+                len = len + 1;
+                similarC(len,DISTANCE) = dist_sim;
+                similarC(len,ID) = id_sim; 
+            end
+                
+            average = sum(similarC(:,DISTANCE))/len;
+            fprintf("Suggestion of countries to visit with ~distance < %.2f\n",average);
+            for c = similarC'
+                distance = c(DISTANCE);
+                if distance >= average
+                    continue;
+                end
+                id_c = c(ID);
+                name = countries{id_c,1};
+                fprintf("[ID=%3d] - %s, with distance ~%.2f\n",id_c,name,distance);
+            end
+           
         case 4
-            mostSimilarRestaurants(id_rest);
+            % We are working with travels id's...
+            [dist_sim,id_sim] = min(MdistOption4(travels(id),:)); % Atention: travels(id) !!!
+
+            name = travelNames{id_sim};
+            interests = travelInterests{id_sim};
+
+            real_id = find(travels == id_sim); % inverse convertion!!!
+
+            fprintf("The most similar turist: [ID=%d,Name=%s], with similarity ~%.2f\n",real_id,name,1-dist_sim); 
+            fprintf("Interests: %s | %s | %s | %s | %s\n",interests{1},interests{2},interests{3},interests{4},interests{5}); 
+
         case 5
             % Countries visited by current user (by ID)
             CountriesVisited = travelSets{id};
