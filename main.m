@@ -41,7 +41,7 @@ while true
     fprintf("\n");
     switch option
         case 1
-            % Countries visited by current user (by ID)
+            % Paises visitados do id
             CountriesVisited = travelSets{id};
             fprintf("You visited %d countries.\n",length(CountriesVisited));
             for c = CountriesVisited'
@@ -50,16 +50,16 @@ while true
             end
 
         case 2
-            % Calculate the ~Jaccard distances
-            % s1 -> most similar | s2 -> second most similar
+            % Calcular as distâncias de Jaccard
+            % s1 -> mais similar | s2 -> segundo mais similar
             [s1_id, s2_id] = calc2MostSimilarSignatures(Msign,k,id); 
 
-            % this ID is not the tourists9.txt ID!!!
-            s1_name = travelNames{travels(s1_id)}; % correct the ids!!!
+            % o ID não está presente em tourists9.txt ID!!!
+            s1_name = travelNames{travels(s1_id)}; % IDs corretos!!!
             s2_name = travelNames{travels(s2_id)};
             fprintf("Countries evaluated by: [ID=%d,Name=%s] [ID=%d,Name=%s]\n",s1_id,s1_name,s2_id,s2_name);
 
-            % Union of countries evaluated by the 2 most similar
+            % União dos países 
             countriesEvaluated = union(travelSets{s1_id},travelSets{s2_id});
             for c = countriesEvaluated'
                 name = countries{c,1};
@@ -67,8 +67,7 @@ while true
             end
             
         case 3
-            
-            % Countries visited more than 3 days by current user (by ID)
+            % Países visitados por mais de 3 dias
             CountriesVisitedMoreThan3Days = travelSetsMoreThan3Days{id};
 
             CountriesVisited = travelSets{id}; % Para garantir que nao foram visitados
@@ -111,7 +110,7 @@ while true
             fprintf("Interests: %s | %s | %s | %s | %s\n",interests{1},interests{2},interests{3},interests{4},interests{5}); 
 
         case 5
-            % Countries visited by current user (by ID)
+            % Paises visitados pelo o ID
             CountriesVisited = travelSets{id};
             fprintf("You visited %d countries.\n",length(CountriesVisited));
             for c = CountriesVisited'

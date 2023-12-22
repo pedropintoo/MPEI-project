@@ -1,10 +1,12 @@
 function countryShingles = createShingles(filename, k_shingle)
-
+    
+    % ler o ficheiro para guardar os países
     countries = readcell(filename,'Delimiter',';');
     save("data/countries.mat","countries");
     
-    numCountries = length(countries);
+    numCountries = length(countries);   % número de países
     
+    % estrutura para guardar os shingles da descrição
     countryShingles = cell(numCountries, 1);
     
     for i = 1:numCountries

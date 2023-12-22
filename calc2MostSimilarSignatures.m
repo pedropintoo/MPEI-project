@@ -1,13 +1,13 @@
 function [s1_id, s2_id] = calc2MostSimilarSignatures(Msign, k, id)
-    % Calculate the most similar signature
+    % Calcular assinaturas similares
 
     similarityRow = sum(Msign(:,id) == Msign(:,:))/k;
-    similarityRow(id) = 0; % delete similarity with me 
+    similarityRow(id) = 0; % eliminar assinaturas
     
-    % Find the first most similar signature
+    % Esncontrar o mais similar
     [~, s1_id] = max(similarityRow);
     
-    % Find the second most similar signature
+    % Esncontrar o segundo mais similar
     [~, s2_id] = max(similarityRow(similarityRow < max(similarityRow)));
 end
 

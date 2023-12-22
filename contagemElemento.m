@@ -14,7 +14,7 @@ function count = contagemElemento(BloomFilterContagem, elemento, v, k)
         c = BloomFilterContagem(hc);
         if c == 0
             count = 0;
-            break; % nao e membro!
+            break; % nao é membro!
         elseif c < count
             count = c;
         end 
