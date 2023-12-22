@@ -13,13 +13,14 @@ v1 = initHashFunctions(N, k);
 
 % calcular a Matriz de Assinaturas com MinHash
 Msign = createMatrixSignatures(travelSets, v1, k);
-
 save("data/Msign.mat", "Msign");
 
 %%
 % 'tourists9.txt'
 % id-travel | name | surname | interest1 | interest2 | ...
 dic = readcell('data/tourists9.txt','Delimiter',';');
+travelNames = dic(:,2:3);
+save("data/travelNames.mat","travelNames");
 travelInterests = dic(:,4:8);
 save("data/travelInterests.mat","travelInterests");
 
@@ -32,11 +33,11 @@ countryShingles = createShingles('data/countries_info.csv', k_shingle); % shingl
 k = 200; %% ???
 % N = 1e7; %% ???
 
-
 % iniciar as funções de dispersão
 v2 = initHashFunctions(N, k);
 
 % calcular a Matriz de Assinaturas com MinHash
 MsignShi = createMatrixSignaturesWithStrings(countryShingles, k);
 disp(MsignShi);
+
 
