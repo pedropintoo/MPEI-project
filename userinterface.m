@@ -2,6 +2,11 @@
 
 k = 200; % NOT CORRECT
 
+% bloom filter vars
+load data/k_bloomFilter.mat
+load data/v_bf.mat
+
+% Matrix...
 load data/travels.mat
 load data/travelSets.mat
 load data/travelInterests.mat
@@ -62,8 +67,13 @@ while true
         case 4
             mostSimilarRestaurants(id_rest);
         case 5
-            restaurantsEvaluatedById(id_rest);
-            break
+            % Countries visited by current user (by ID)
+            CountriesVisited = travelSets{id};
+            fprintf("You visited %d countries.\n",length(CountriesVisited));
+            for c = CountriesVisited'
+                name = countries{c,1};
+                fprintf("[ID=%3d] - %s, visited ~%d times\n",c,name,contagemElemento(BloomFilterContagem,c,v_bf,k_bloomFilter));
+            end
         case 6
             fprintf("Good bye :)\n");
             return  
