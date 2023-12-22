@@ -11,6 +11,7 @@ load data/travels.mat
 load data/travelSets.mat
 load data/travelSetsMoreThan3Days.mat
 load data/MdistOption3.mat
+load data/MdistOption4.mat
 
 load data/travelInterests.mat
 load data/countries.mat
@@ -85,8 +86,8 @@ while true
                 similarC(len,ID) = id_sim; 
             end
                 
-            fprintf
             average = sum(similarC(:,DISTANCE))/len;
+            fprintf("Suggestion of countries to visit with ~distance < %.2f\n",average);
             for c = similarC'
                 distance = c(DISTANCE);
                 if distance >= average
@@ -98,7 +99,17 @@ while true
             end
            
         case 4
-            mostSimilarRestaurants(id_rest);
+            % Calculate the ~Jaccard distances
+            % s1 -> most similar | s2 -> second most similar
+            [dist_sim,id_sim] = min(MdistOption4(id,:));
+
+            % this ID is not the tourists9.txt ID!!!
+            name = travelNames{travels(id_sim)}; % correct the ids!!!
+
+
+            fprintf("The most similar turist: [ID=%d,Name=%s]\n",id_sim,name); 
+            fprintf("Interests:  most similar turist: [ID=%d,Name=%s]\n",id_sim,name); 
+
         case 5
             % Countries visited by current user (by ID)
             CountriesVisited = travelSets{id};

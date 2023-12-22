@@ -93,13 +93,23 @@ while true
                 if distance >= average
                     continue;
                 end
-                id = c(ID);
-                name = countries{id,1};
-                fprintf("[ID=%3d] - %s, with distance ~%.2f\n",id,name,distance);
+                id_c = c(ID);
+                name = countries{id_c,1};
+                fprintf("[ID=%3d] - %s, with distance ~%.2f\n",id_c,name,distance);
             end
            
         case 4
-            mostSimilarRestaurants(id_rest);
+            % We are working with travels id's...
+            [dist_sim,id_sim] = min(MdistOption4(travels(id),:)); % Atention: travels(id) !!!
+
+            name = travelNames{id_sim};
+            interests = travelInterests{id_sim};
+
+            real_id = find(travels == id_sim); % inverse convertion!!!
+
+            fprintf("The most similar turist: [ID=%d,Name=%s], with similarity ~%.2f\n",real_id,name,1-dist_sim); 
+            fprintf("Interests: %s | %s | %s | %s | %s\n",interests{1},interests{2},interests{3},interests{4},interests{5}); 
+
         case 5
             % Countries visited by current user (by ID)
             CountriesVisited = travelSets{id};
