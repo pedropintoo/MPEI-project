@@ -66,15 +66,37 @@ while true
             end
             
         case 3
+            
             % Countries visited more than 3 days by current user (by ID)
             CountriesVisitedMoreThan3Days = travelSetsMoreThan3Days{id};
 
+            CountriesVisited = travelSets{id}; % Para garantir que nao foram visitados
+            
+            DISTANCE = 1; ID = 2; % vars to use forther (to simplify)
+            len = 0;
             for c = CountriesVisitedMoreThan3Days'
-                [distance, id] = min(MdistOption3(c,:));
-                name = countries{id,1};
-                fprintf("[ID=%3d] - %s \n",id,name);
+                [dist_sim,id_sim] = min(MdistOption3(c,:));
+                % verificar se ja foi visitado
+                if ismember(id_sim, CountriesVisited)
+                    continue; % ja visitado
+                end
+                len = len + 1;
+                similarC(len,DISTANCE) = dist_sim;
+                similarC(len,ID) = id_sim; 
             end
-            searchRestaurant(id_rest);
+                
+            fprintf
+            average = sum(similarC(:,DISTANCE))/len;
+            for c = similarC'
+                distance = c(DISTANCE);
+                if distance >= average
+                    continue;
+                end
+                id = c(ID);
+                name = countries{id,1};
+                fprintf("[ID=%3d] - %s, with distance ~%.2f\n",id,name,distance);
+            end
+           
         case 4
             mostSimilarRestaurants(id_rest);
         case 5

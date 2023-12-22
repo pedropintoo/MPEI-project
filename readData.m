@@ -43,15 +43,23 @@ M = 1e6; % Hash values mod
 % calcular a Matriz de Assinaturas com MinHash
 MsignShi = createMatrixSignaturesWithStrings(countryShingles, k, M);
 
-%% Calculate the distances
+% Calculate the distances
 
 MdistOption3 = calcDistancesSignatures(MsignShi,k);
 save('data/MdistOption3.mat',"MdistOption3");
 
 %% Option 4
 
+k = 200; % ???
+M = 1e6; % Hash values mod
 
+% calcular a Matriz de Assinaturas com MinHash
+MsignInt = createMatrixSignaturesWithStrings(travelInterests, k, M);
 
+% Calculate the distances
+
+MdistOption4 = calcDistancesSignatures(MsignInt,k);
+save('data/MdistOption4.mat',"MdistOption4");
 
 
 %% Option 5

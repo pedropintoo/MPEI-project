@@ -11,6 +11,7 @@ load data/travels.mat
 load data/travelSets.mat
 load data/travelSetsMoreThan3Days.mat
 load data/MdistOption3.mat
+load data/MdistOption4.mat
 
 load data/travelInterests.mat
 load data/countries.mat
@@ -66,22 +67,30 @@ while true
             end
             
         case 3
+            
             % Countries visited more than 3 days by current user (by ID)
             CountriesVisitedMoreThan3Days = travelSetsMoreThan3Days{id};
-            CMT3D = length(CountriesVisitedMoreThan3Days);
-            similarC = zeros(CMT3D,2);
+
+            CountriesVisited = travelSets{id}; % Para garantir que nao foram visitados
+            
             DISTANCE = 1; ID = 2; % vars to use forther (to simplify)
-            i = 1;
+            len = 0;
             for c = CountriesVisitedMoreThan3Days'
-                [similarC(i,DISTANCE), similarC(i,ID)] = min(MdistOption3(c,:));
-                i = i + 1;
+                [dist_sim,id_sim] = min(MdistOption3(c,:));
+                % verificar se ja foi visitado
+                if ismember(id_sim, CountriesVisited)
+                    continue; % ja visitado
+                end
+                len = len + 1;
+                similarC(len,DISTANCE) = dist_sim;
+                similarC(len,ID) = id_sim; 
             end
-            % Pode acontecer ja terem sido visitados!
-            % ||||||||||||||||||||||||||||||||||||||||||||
-            threshold = sum(similarC(:,DISTANCE))/CMT3D;
+                
+            average = sum(similarC(:,DISTANCE))/len;
+            fprintf("Suggestion of countries to visit with ~distance < %.2f\n",average);
             for c = similarC'
                 distance = c(DISTANCE);
-                if distance >= threshold
+                if distance >= average
                     continue;
                 end
                 id = c(ID);
