@@ -19,6 +19,8 @@ save("data/Msign.mat", "Msign");
 % 'tourists9.txt'
 % id-travel | name | surname | interest1 | interest2 | ...
 dic = readcell('data/tourists9.txt','Delimiter',';');
+travelNames = dic(:,2:3);
+save("data/travelNames.mat","travelNames");
 travelInterests = dic(:,4:8);
 save("data/travelInterests.mat","travelInterests");
 
@@ -31,14 +33,9 @@ countryShingles = createShingles('data/countries_info.csv',k_shingle); % shingle
 % k = 200; %% ???
 % N = 1e7; %% ???
 
-%% Option 2
 
-% Calcular as 2 assinaturas mais similares de cada turista
-Nt = length(travels);
-M2mostSim = zeros(t,2);
-for t = 1:Nt
-    [a,b] = calc2MostSimilarSignatures(Msign,k,t);
-    M2mostSim(t,1) = a;
-    M2mostSim(t,2) = b;
-end
-save("data/M2mostSim.mat", "M2mostSim");
+
+
+
+
+

@@ -7,6 +7,8 @@ load data/travelSets.mat
 load data/travelInterests.mat
 load data/countries.mat
 load data/Msign.mat
+load data/M2mostSim.mat
+
 
 %% ID do utilizador
 % Validar ID
@@ -44,8 +46,12 @@ while true
             % Calculate the ~Jaccard distances
             % s1 -> most similar | s2 -> second most similar
             [s1_id, s2_id] = calc2MostSimilarSignatures(Msign,k,id); 
-            fprintf("Countries evaluated by: [ID=%d] [ID=%d]\n",s1_id,s2_id);
-            fprintf("Countries evaluated by: [ID=%d] [ID=%d]\n",s1_id,s2_id);
+
+            % this ID is not the tourists9.txt ID!!!
+            s1_name = travelNames{travels(s1_id)}; % correct the ids!!!
+            s2_name = travelNames{travels(s2_id)};
+            fprintf("Countries evaluated by: [ID=%d,Name=%s] [ID=%d,Name=%s]\n",s1_id,s1_name,s2_id,s2_name);
+            
             % Union of countries evaluated by the 2 most similar
             countriesEvaluated = union(travelSets{s1_id},travelSets{s2_id});
             for c = countriesEvaluated'
