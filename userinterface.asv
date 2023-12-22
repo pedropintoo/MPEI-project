@@ -1,14 +1,15 @@
 %% Ler estrutura
 
 k = 200; % NOT CORRECT
+% bloom filter vars
+load data/k_bloomFilter.mat
+load
 
 load data/travels.mat
 load data/travelSets.mat
 load data/travelInterests.mat
 load data/countries.mat
 load data/Msign.mat
-load data/M2mostSim.mat
-
 
 %% ID do utilizador
 % Validar ID
@@ -51,7 +52,7 @@ while true
             s1_name = travelNames{travels(s1_id)}; % correct the ids!!!
             s2_name = travelNames{travels(s2_id)};
             fprintf("Countries evaluated by: [ID=%d,Name=%s] [ID=%d,Name=%s]\n",s1_id,s1_name,s2_id,s2_name);
-            
+
             % Union of countries evaluated by the 2 most similar
             countriesEvaluated = union(travelSets{s1_id},travelSets{s2_id});
             for c = countriesEvaluated'
@@ -64,8 +65,13 @@ while true
         case 4
             mostSimilarRestaurants(id_rest);
         case 5
-            restaurantsEvaluatedById(id_rest);
-            break
+            % Countries visited by current user (by ID)
+            CountriesVisited = travelSets{id};
+            fprintf("You visited %d countries.\n",length(CountriesVisited));
+            for c = CountriesVisited'
+                name = countries{c,1};
+                fprintf("[ID=%3d] - %s, visited ~%d times\n",c,name,contagemElemento(BloomFilterContagem,c,k_bloomFilter));
+            end
         case 6
             fprintf("Good bye :)\n");
             return  

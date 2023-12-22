@@ -33,11 +33,34 @@ countryShingles = createShingles('data/countries_info.csv', k_shingle); % shingl
 k = 200; %% ???
 % N = 1e7; %% ???
 
+<<<<<<< HEAD
 % iniciar as funções de dispersão
 v2 = initHashFunctions(N, k);
 
 % calcular a Matriz de Assinaturas com MinHash
 MsignShi = createMatrixSignaturesWithStrings(countryShingles, k);
 disp(MsignShi);
+=======
 
+%% Option 5
+
+N = 1e4;
+k_bloomFilter = 10; 
+save("data/k_bloomFilter.mat","k_bloomFilter");
+BloomFilterContagem = inicializarFiltroContagem(N);
+
+udata=load('data/travels9.data');          
+visitedCountries = udata(:,2); % with repetition!
+clear udata;
+
+% iniciar as funções de dispersão
+v_bf = initHashFunctions(N, k_bloomFilter);
+save("data/v_bf.mat","v_bf"); % guardo para depois puder utilizar na contagem
+>>>>>>> 8d8163046846ab6b7f31dbae049ea86b51cc5ae2
+
+for i = 1:length(visitedCountries)
+    BloomFilterContagem = adicionarElementoContagem(BloomFilterContagem, visitedCountries(i), v_bf, k_bloomFilter);
+end
+
+save("data/BloomFilterContagem.mat","BloomFilterContagem");
 
