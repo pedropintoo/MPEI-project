@@ -72,7 +72,7 @@ while true
 
             CountriesVisited = travelSets{id}; % Para garantir que nao foram visitados
             
-            DISTANCE = 1; ID = 2; % vars to use forther (to simplify)
+            DISTANCE = 1; ID = 2; % constantes
             len = 0;
             for c = CountriesVisitedMoreThan3Days'
                 [dist_sim,id_sim] = min(MdistOption3(c,:));
