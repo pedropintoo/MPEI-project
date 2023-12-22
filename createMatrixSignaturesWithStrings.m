@@ -1,21 +1,22 @@
 function MatrixSigShingles = createMatrixSignaturesWithStrings(stringSets, k)
     h= waitbar(0,"Creating Signatures...");
 
-    Nu = length(stringSets);
-    MatrixSigShingles = zeros(k, Nu);
+    N = length(stringSets);
+    MatrixSigShingles = zeros(k, N);
 
-    for u = 1:Nu 
-        waitbar(u/Nu, h);
-        string = stringSets{u};
-        signature = zeros(1, k);    % store the MinHash of the current 'u'
-        for i = 1:length(string)
+    for u = 1:N 
+        waitbar(u/N, h);
+        % x = stringSets{u}';
+        x = cell2mat(stringSets{u}');
+        
+        for sh = 1:length(x)
             for fh = 1:k
-                hc = string2hash(string{i});
-                signature(fh) = min(hc);
+                key = [x(sh) num2str(fh)];
+                hc = string2hash(key);
+                MatrixSigShingles(fh,u) = min(hc);
             end
         end
-        MatrixSigShingles(:, u) = signature';
     end
-
+    
     delete(h);
 end
