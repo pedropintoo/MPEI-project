@@ -14,7 +14,7 @@ function MatrixSigShingles = createMatrixSignaturesWithStrings(stringSets, k)
                 key = [x(sh) num2str(fh)];
                 hc = string2hash(key);
                 hc = mod(hc, length(MatrixSigShingles)) + 1;
-                MatrixSigShingles(fh,u) = min(hc);
+                MatrixSigShingles(fh,u) = min(hc, MatrixSigShingles(fh, u));
             end
         end
     end
