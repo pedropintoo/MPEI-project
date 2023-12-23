@@ -1,3 +1,4 @@
+%% Globais
 % cálculo dos Sets relativos às viagens 
 [travels, travelSets, travelSetsMoreThan3Days] = createSets('data/travels9.data');
 
@@ -6,21 +7,6 @@ save("data/travels.mat","travels");
 save("data/travelSets.mat","travelSets");
 save("data/travelSetsMoreThan3Days.mat","travelSetsMoreThan3Days")
 
-k = 200; %% ???
-N = 1e7; %% ???
-
-% iniciar as funções de dispersão
-v = initHashFunctions(N, k);
-
-% calcular a Matriz de Assinaturas com MinHash das viagens
-Msign = createMatrixSignatures(travelSets, v, k);
-save("data/Msign.mat", "Msign");
-
-% Calcular as distâncias de Jaccard
-MdistOption2 = calcDistancesSignatures(Msign,k);
-save('data/MdistOption2.mat',"MdistOption2");
-
-%%
 dic = readcell('data/tourists9.txt','Delimiter',';');
 % guardar apenas o primeiro e último nome de cada turista
 travelNames = dic(:,2:3);
@@ -38,26 +24,40 @@ end
 save("data/travelInterests.mat","travelInterests");
 
 
-%%
+%% Opcao 2
+
+k = 200; %% ???
+N = 1e7; %% ???
+
+% iniciar as funções de dispersão
+v = initHashFunctions(N, k);
+
+% calcular a Matriz de Assinaturas com MinHash das viagens
+Msign = createMatrixSignatures(travelSets, v, k);
+
+% Calcular as distâncias de Jaccard
+MdistOption2 = calcDistancesSignatures(Msign,k);
+save('data/MdistOption2.mat',"MdistOption2");
+
+%% Opçao 3
 
 k_shingle = 8; %% ???
 
 % criar uma estrutura com as descrições de cada país em shingles
+% guarda data/countries.mat
 countryShingles = createShingles('data/countries_info.csv', k_shingle); % shinglesDescription
 
-
-k = 50; % ???
+k = 25; % ???
 M = 1e6; % Hash values mod
 
-% calcular a Matriz de Assinaturas com MinHash com os shingles de
-% countryShingles
+% calcular a Matriz de Assinaturas com MinHash combinando shingles
 MsignShi = createMatrixSignaturesWithStrings(countryShingles, k, M);
 
 % Calcular as distâncias de Jaccard
 MdistOption3 = calcDistancesSignatures(MsignShi,k);
 save('data/MdistOption3.mat',"MdistOption3");
 
-%% Option 4
+%% Opçao 4
 
 k = 200; % ???
 M = 1e6; % Hash values mod
@@ -70,10 +70,10 @@ MdistOption4 = calcDistancesSignatures(MsignInt,k);
 save('data/MdistOption4.mat',"MdistOption4");
 
 
-%% Option 5
+%% Opçao 5
 
 N = 1e4;
-k_bloomFilter = 10;     % k funções de dispersão 
+k_bloomFilter = 20;     % k funções de dispersão 
 save("data/k_bloomFilter.mat","k_bloomFilter");
 
 % inicializar o Counting Filter Bloom

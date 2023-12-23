@@ -1,23 +1,23 @@
-%% Ler estrutura
+%% Ler ficheiros
 
 % Globais
 load data/travels.mat
 load data/travelSets.mat
 load data/travelNames.mat
 load data/travelInterests.mat
-load data/countries.mat
-
 load data/travelSetsMoreThan3Days.mat
+
+load data/countries.mat
 
 % Matrizes de distancias por Opçoes
 load data/MdistOption2.mat
 load data/MdistOption3.mat
 load data/MdistOption4.mat
 
-% Counter Bloom Filter
-load data/k_bloomFilter.mat
-load data/v_bf.mat
-load data/BloomFilterContagem.mat
+% Counter Bloom Filter (opcao 5)
+load data/k_bloomFilter.mat             % k funcoes de hash do Bloom Filter
+load data/v_bf.mat                      % funcoes de hash utilizadas para adicionar/contar no Bloom Filter
+load data/BloomFilterContagem.mat   
 
 
 %% ID do turista
