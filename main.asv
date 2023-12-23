@@ -20,7 +20,7 @@ load data/v_bf.mat
 load data/BloomFilterContagem.mat
 
 
-%% ID do turista
+%% ID do utilizador
 % Validar ID
 fprintf("\n")
 Nu = length(travels);
@@ -104,10 +104,10 @@ while true
             % Estamos a trabalhar com id's dos travels ([1,2000]) !!!
             [dist_sim,id_sim] = min(MdistOption4(travels(id),:));
 
-            name = travelNames{id_sim}; % nao precisamos de conversao
+            name = travelNames{id_sim}; % nao precis
             interests = travelInterests{id_sim};
 
-            real_id = find(travels == id_sim); % conversao para ter o verdadeiro ID
+            real_id = find(travels == id_sim); % inverse convertion!!!
 
             fprintf("The most similar turist: [ID=%d,Name=%s], with similarity ~%.2f.\n",real_id,name,1-dist_sim); 
             fprintf("Interests: %s | %s | %s | %s | %s\n",interests{1},interests{2},interests{3},interests{4},interests{5}); 
