@@ -3,7 +3,7 @@ function Msign = createMatrixSignaturesWithStrings(countryShingles, k, M)
     % de dispersao, baseada na DJB31MA.
     h= waitbar(0,"Creating Signatures...");
 
-    N = length(countryShingles); % número de países
+    N = length(countryShingles);
     Msign = zeros(k, N);
 
     for u = 1:N 

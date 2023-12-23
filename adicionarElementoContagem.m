@@ -8,9 +8,3 @@ function BloomFilterContagem = adicionarElementoContagem(BloomFilterContagem, el
     end
 end
 
-% Exemplo:
-% elemento = 'abc'
-
-% f1: key='abc1'
-% f2: key='abc12'
-% f3: key='abc123'

@@ -47,8 +47,8 @@ k_shingle = 10;
 % guarda data/countries.mat
 countryShingles = createShingles('data/countries_info.csv', k_shingle); % shinglesDescription
 
-k = 25; % ???
-N = 1e6; % Hash values mod
+k = 200;
+N = 1e8; 
 
 % calcular a Matriz de Assinaturas com MinHash combinando shingles
 MsignShi = createMatrixSignaturesWithStrings(countryShingles, k, N);
@@ -59,7 +59,7 @@ save('data/MdistOption3.mat',"MdistOption3");
 
 %% Opçao 4
 
-k = 150;
+k = 150; 
 N = 1e6; 
 
 % calcular a Matriz de Assinaturas com MinHash dos interesses

@@ -1,5 +1,5 @@
 function distMH = calcDistancesSignatures(Msign, k)
-    % Cria a matrix probabilistica das distancias de Jaccard.
+    % Cria a matrix aproximada das distancias de Jaccard.
     h= waitbar(0,'Calculating Distances...');
     Nu = size(Msign,2);
 

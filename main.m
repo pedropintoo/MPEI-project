@@ -76,19 +76,19 @@ while true
             CountriesVisited = travelSets{id}; % Para garantir que nao foram visitados
             
             DISTANCE = 1; ID = 2; % constantes
-            len = 0;
+            idx = 1;
             for c = CountriesVisitedMoreThan3Days'
                 [dist_sim,id_sim] = min(MdistOption3(c,:));
                 % verificar se ja foi visitado
                 if ismember(id_sim, CountriesVisited)
                     continue; % ja visitado
                 end
-                len = len + 1;
-                similarC(len,DISTANCE) = dist_sim;
-                similarC(len,ID) = id_sim; 
+                similarC(idx,DISTANCE) = dist_sim;
+                similarC(idx,ID) = id_sim; 
+                idx = idx + 1;
             end
                 
-            average = sum(similarC(:,DISTANCE))/len;
+            average = mean(similarC(:,DISTANCE));
             fprintf("Suggestion of countries to visit with ~distance < %.2f\n",average);
             for c = similarC'
                 distance = c(DISTANCE);
