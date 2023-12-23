@@ -16,6 +16,7 @@ function countryShingles = createShingles(filename, k_shingle)
             countryShingles{i}(j,1) = {name(j:j+k_shingle-1)};
             j = j + 1;
         end
+
         countryShingles{i} = unique(countryShingles{i}); % shingles nao se repetem
     end
     

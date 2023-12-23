@@ -26,8 +26,8 @@ save("data/travelInterests.mat","travelInterests");
 
 %% Opcao 2
 
-k = 200; %% ???
-N = 1e7; %% ???
+k = 150; 
+N = 1e6; 
 
 % iniciar as funções de dispersão
 v = initHashFunctions(N, k);
@@ -41,17 +41,17 @@ save('data/MdistOption2.mat',"MdistOption2");
 
 %% Opçao 3
 
-k_shingle = 8; %% ???
+k_shingle = 10;
 
 % criar uma estrutura com as descrições de cada país em shingles
 % guarda data/countries.mat
 countryShingles = createShingles('data/countries_info.csv', k_shingle); % shinglesDescription
 
 k = 25; % ???
-M = 1e6; % Hash values mod
+N = 1e6; % Hash values mod
 
 % calcular a Matriz de Assinaturas com MinHash combinando shingles
-MsignShi = createMatrixSignaturesWithStrings(countryShingles, k, M);
+MsignShi = createMatrixSignaturesWithStrings(countryShingles, k, N);
 
 % Calcular as distâncias de Jaccard
 MdistOption3 = calcDistancesSignatures(MsignShi,k);
@@ -59,21 +59,20 @@ save('data/MdistOption3.mat',"MdistOption3");
 
 %% Opçao 4
 
-k = 200; % ???
-M = 1e6; % Hash values mod
+k = 150;
+N = 1e6; 
 
 % calcular a Matriz de Assinaturas com MinHash dos interesses
-MsignInt = createMatrixSignaturesWithStrings(travelInterests, k, M);
+MsignInt = createMatrixSignaturesWithStrings(travelInterests, k, N);
 
 % Calcular as distâncias de Jaccard
 MdistOption4 = calcDistancesSignatures(MsignInt,k);
 save('data/MdistOption4.mat',"MdistOption4");
 
-
 %% Opçao 5
 
 N = 1e4;
-k_bloomFilter = 20;     % k funções de dispersão 
+k_bloomFilter = 125;     % k funções de dispersão 
 save("data/k_bloomFilter.mat","k_bloomFilter");
 
 % inicializar o Counting Filter Bloom
@@ -92,4 +91,5 @@ for i = 1:length(visitedCountries)
 end
 
 save("data/BloomFilterContagem.mat","BloomFilterContagem");
+
 
