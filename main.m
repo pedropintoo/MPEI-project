@@ -1,21 +1,24 @@
 %% Ler estrutura
 
-k = 200; % NOT CORRECT
-
-% bloom filter vars
-load data/k_bloomFilter.mat
-load data/v_bf.mat
-
-% Matrix...
+% Globais
 load data/travels.mat
 load data/travelSets.mat
+load data/travelNames.mat
+load data/travelInterests.mat
+load data/countries.mat
+
 load data/travelSetsMoreThan3Days.mat
+
+% Matrizes de distancias por Opçoes
+load data/MdistOption2.mat
 load data/MdistOption3.mat
 load data/MdistOption4.mat
 
-load data/travelInterests.mat
-load data/countries.mat
-load data/Msign.mat
+% Counter Bloom Filter
+load data/k_bloomFilter.mat
+load data/v_bf.mat
+load data/BloomFilterContagem.mat
+
 
 %% ID do utilizador
 % Validar ID
@@ -52,7 +55,7 @@ while true
         case 2
             % Calcular as distâncias de Jaccard
             % s1 -> mais similar | s2 -> segundo mais similar
-            [s1_id, s2_id] = calc2MostSimilarSignatures(Msign,k,id); 
+            [s1_id, s2_id] = calc2MostSimilarSignatures(MdistOption2,id); 
 
             % o ID não está presente em tourists9.txt ID!!!
             s1_name = travelNames{travels(s1_id)}; % IDs corretos!!!
@@ -106,7 +109,7 @@ while true
 
             real_id = find(travels == id_sim); % inverse convertion!!!
 
-            fprintf("The most similar turist: [ID=%d,Name=%s], with similarity ~%.2f\n",real_id,name,1-dist_sim); 
+            fprintf("The most similar turist: [ID=%d,Name=%s], with similarity ~%.2f.\n",real_id,name,1-dist_sim); 
             fprintf("Interests: %s | %s | %s | %s | %s\n",interests{1},interests{2},interests{3},interests{4},interests{5}); 
 
         case 5

@@ -16,6 +16,10 @@ v = initHashFunctions(N, k);
 Msign = createMatrixSignatures(travelSets, v, k);
 save("data/Msign.mat", "Msign");
 
+% Calcular as distâncias de Jaccard
+MdistOption2 = calcDistancesSignatures(Msign,k);
+save('data/MdistOption2.mat',"MdistOption2");
+
 %%
 dic = readcell('data/tourists9.txt','Delimiter',';');
 % guardar apenas o primeiro e último nome de cada turista
@@ -69,7 +73,7 @@ save('data/MdistOption4.mat',"MdistOption4");
 %% Option 5
 
 N = 1e4;
-k_bloomFilter = 10;     % 10 funções de dispersão 
+k_bloomFilter = 10;     % k funções de dispersão 
 save("data/k_bloomFilter.mat","k_bloomFilter");
 
 % inicializar o Counting Filter Bloom
