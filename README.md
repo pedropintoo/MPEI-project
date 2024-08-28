@@ -1,5 +1,7 @@
 # 2ano/1semestre/MPEI/MPEI-project-2
 
+# Nota: 17.8
+
 Este projeto implementa funções de dispersão, um Counting Bloom Filter e cálculos de similaridade utilizando o algoritmo MinHash combinado com Shingles, em MATLAB.
 
 ## Executar o Projeto
