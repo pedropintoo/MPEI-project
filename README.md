@@ -1,6 +1,12 @@
-# 2ano/1semestre/MPEI/MPEI-project-2
+# 2ano/1semestre/MPEI/MPEI-project
 
 # Nota: 17.8
+
+Pedro Pinto (115304)
+
+Jorge Domingues (113278)
+
+## MPEI-project
 
 Este projeto implementa funções de dispersão, um Counting Bloom Filter e cálculos de similaridade utilizando o algoritmo MinHash combinado com Shingles, em MATLAB.
 
